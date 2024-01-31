@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+</head>
+<body>
+    <h4 style="text-align:center; color:red;" >Password Generator</h4>
+    {% if not password %}
+    <div style="text-align: center;">
+        {% if error_msg %}
+        <p>{{ error_msg }}</p>
+        {% endif %}
+        <form method="POST" action="">
+            {{form.as_p}}
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    {% else %}
+    <div style="text-align: center;">
+        <p>Generated Password :-</p>
+        <p>{{ password }}</p>
+        <p>{{ message }}</p>
+        <a href="/" class="btn btn-primary">Home</a>
+    </div>
+    {% endif %}
+</body>
+</html>

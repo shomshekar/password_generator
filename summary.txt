@@ -1,0 +1,13 @@
+Options to Generate Password :-
+- Include Lower case [a-z]
+- Include Upper case [A-Z]
+- Include Numbers [0-9]
+- Include Symbols [!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]
+- No Repeated characters
+
+Ask user to add length of password, minimum and default length is set to 6.
+Maximum length taken is set to 20.
+By default options of Uppercase, Lowercase, Numbers and Symbol, will be kept selected.
+So any password generated will include all 4 types, by default.
+Once the password is generated, it will be show on browser.
+Also the generated password will be evaluated to check if the password is strong or not.
