@@ -50,7 +50,7 @@ def generate_characters(request):
     if 'numbers' in request.POST.keys():
         characterList += string.digits
     if 'specialCharacter' in request.POST.keys():
-        characterList += '!#$%&;()*+-:;&lt;=&gt;?@_|'
+        characterList += '!#$%&()*+-<=>?@_|'
     
     return characterList
 
