@@ -16,6 +16,7 @@
             {{form.as_p}}
             {% csrf_token %}
             <input type="submit" value="Submit">
+            <a href="" class="btn btn-secondary">Reload</a>
         </form>
     </div>
     {% else %}
@@ -23,7 +24,7 @@
         <p>Generated Password :-</p>
         <p>{{ password }}</p>
         <p>{{ message }}</p>
-        <a href="/" class="btn btn-primary">Home</a>
+        <a href="" class="btn btn-primary">Home</a>
     </div>
     {% endif %}
 </body>
