@@ -32,8 +32,6 @@ def checkPassword(password):
 
 
 def generate_password(characterList, password_length, no_repeat=False):
-    password = []
-    
     if no_repeat:
         password = random.sample(characterList, password_length)
     else:
@@ -87,13 +85,15 @@ def home(request):
 
         form = forms.FormName(request.POST)
         password_length = 0
-        checkPasswordConditions(request, context)
+        context = checkPasswordConditions(request, context)
+
 
         if 'error_msg' not in context:
             # Then we check to see if the form is valid
             if form.is_valid():
+                password_length = request.POST['passwordLength']
                 password_length = int(password_length)
-                # Group characters as per option seected by user
+                # Group characters as per option selected by user
                 characterList = generate_characters(request)
 
                 no_repeat = True if 'noRepeatCharacter' in request.POST.keys() else False
