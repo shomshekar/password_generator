@@ -1,23 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body>
-    <h4 style="text-align:center; color:red;" >Password Generator</h4>
+    <h4 style="text-align:center; color:red;margin-top: 3%;" >Password Generator</h4>
     {% if not password %}
-    <div style="text-align: center;">
+    <div style="text-align: center;margin-top: 3%;">
         {% if error_msg %}
-        <p>{{ error_msg }}</p>
+        <p class="text-danger">{{ error_msg }}</p>
         {% endif %}
-        <form method="POST" action="">
+        <form method="POST" class="row g-3 ">
             {{form.as_p}}
             {% csrf_token %}
-            <input type="submit" value="Submit">
-            <a href="" class="btn btn-secondary">Reload</a>
+            <div class="gap-2">
+                <a href="" class="btn btn-secondary">Reload</a>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>        
         </form>
+        
     </div>
     {% else %}
     <div style="text-align: center;">

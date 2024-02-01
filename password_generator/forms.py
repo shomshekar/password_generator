@@ -12,7 +12,12 @@ class FormName(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+            if visible.field.widget.input_type == 'checkbox':
+                visible.field.widget.attrs['class'] = 'form-check-input'
+                visible.field.widget.attrs['style'] = 'outline: 0.5px solid #000;'
+            else:
+                visible.field.widget.attrs['class'] = 'form-control'
+                visible.field.widget.attrs['style'] = 'width:auto;display:inline-block;'
             # if visible.field.widget.input_type == 'text':
             #     visible.field.widget.attrs['type'] = 'numbers'
             #     visible.field.widget.attrs['min'] = '6'
