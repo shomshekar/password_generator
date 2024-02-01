@@ -6,6 +6,7 @@ from . import forms
 import string
 import random
 
+# Function to check if the generated password is strong or medium
 def checkPassword(password):
     upperChars, lowerChars, specialChars, digits, length = 0, 0, 0, 0, 0
 
@@ -41,6 +42,7 @@ def generate_password(characterList, password_length, no_repeat=False):
     return ''.join(password)
 
 
+# Function to group characters, as per options selected by user, before generating password
 def generate_characters(request):
     characterList = ""
     if 'upperCase' in request.POST.keys():
@@ -54,7 +56,7 @@ def generate_characters(request):
     
     return characterList
 
-
+# Additional conditions to check before form valid
 def checkPasswordConditions(request, context):
 
     password_length = request.POST['passwordLength']
@@ -91,6 +93,7 @@ def home(request):
             # Then we check to see if the form is valid
             if form.is_valid():
                 password_length = int(password_length)
+                # Group characters as per option seected by user
                 characterList = generate_characters(request)
 
                 no_repeat = True if 'noRepeatCharacter' in request.POST.keys() else False
