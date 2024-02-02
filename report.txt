@@ -1,0 +1,43 @@
+Program Analysis Report
+
+To generate password
+- User will give the password length minmimum is 6, maximum is 20
+- The user will select atleast one or more, of the 4 checkbox options ['A-Z', 'a-z', '0-9', '!#$%&()*+-:;?@_|']
+- Also user can select if the password can have repeated characters or not
+- On submitting, we evaluate the conditions for password like:-
+    > Is the password length given is digit or not, an appropriate message is given back in case it is not.
+
+    > The password length can be less than 6 and more than 20
+    > Atleast one of the 4 checkboxs needs to be selected ['A-Z', 'a-z', '0-9', '!#$%&()*+-:;?@_|']
+    > The password length cannot be more than 10 if user selects checkboxs option of ([0-9] and no_repeat)
+    
+- After checking for the above conditions form is considered valid.
+- If form is valid, then 
+    > We first create a single characterList that will consist of all the selected options. Like if user has selected upper-case and digits, then the characterList will consists of all Upper case letters A-Z and digits from 0-9.
+    
+    > Sample characterList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    > Lets consider password length = 8
+    
+    > Now since 2 checkboxs have been selected, so atleast one character should be selcted from both 
+    [A-Z] and [0-9]
+    
+    > Once the 2 characters are selected randomly, now the rest of the password lenght required is 6.
+    > To get 6 characters we now use one of the two random functions.
+    
+    > Incase the user also selects no_repeat checkbox option, then the random.sample() function is used, as random.sample will select charactes that will not be repeated, from characterList.
+    
+    > Incase the user has not selected no_repeat option, then random.choices() function is used, which can also give already selected character, from characterList.
+    
+- After password is generated, we evaluate the password strength
+    > To evaluate password strength we check the password length and no.of different string types and special characters like ['A-Z', 'a-z', '0-9', '!#$%&()*+-:;?@_|'], are there.
+    > if atleast 1 of all the items are present and password length is atleast 10 we declare it as strong, and the rest we declare it as medium.
+    > The password and password strength is shown on browser.
+
+- No DB is used, so no data is stored.
+
+
+Report on Challenges faced
+
+- The challenge was more on ensuring the logic was set right and testing.
+- Also the UI part, though it is simple, yet it took some time to get the UI complete.
+- Part of the reason is because i was using forms.py and adding style and classes from forms.py
