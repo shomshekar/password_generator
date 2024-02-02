@@ -33,17 +33,29 @@ def checkPassword(password):
     return data
 
 
+def select_character(characterList, string_type, no_repeat):
+    choice = random.choices(string_type, k=1)
+    choice = ''.join(choice)
+    if no_repeat:
+        characterList.replace(choice, '')
+    return choice, characterList
+
+
 def generate_password(characterList, password_length, no_repeat, str_type):
 
     password = ''
     if 'upperCase' in str_type:
-        password += ''.join(random.choices(string.ascii_uppercase, k=1))
+        passData, characterList = select_character(characterList, string.ascii_uppercase, no_repeat)
+        password += ''.join(passData)
     if 'lowerCase' in str_type:
-        password += ''.join(random.choices(string.ascii_lowercase, k=1))
+        passData, characterList = select_character(characterList, string.ascii_lowercase, no_repeat)
+        password += ''.join(passData)
     if 'numbers' in str_type:
-        password += ''.join(random.choices(string.digits, k=1))
+        passData, characterList = select_character(characterList, string.digits, no_repeat)
+        password += ''.join(passData)
     if 'specialCharacter' in str_type:
-        password += ''.join(random.choices(special_characters, k=1))
+        passData, characterList = select_character(characterList, special_characters, no_repeat)
+        password += ''.join(passData)
 
     if no_repeat:
         password += ''.join(random.sample(characterList, password_length))
