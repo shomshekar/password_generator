@@ -6,9 +6,11 @@ from . import forms
 import string
 import random
 
+special_characters = '!#$%&()*+-:;?@_|'
+
 # Function to check if the generated password is strong or medium
 def checkPassword(password):
-    upperChars, lowerChars, specialChars, digits, length = 0, 0, 0, 0, 0
+    upperChars, lowerChars, specialChars, digits, length = 0, 0, 0, 0, len(password)
 
     for i in range(0, length):
         if (password[i].isupper()):
@@ -31,26 +33,44 @@ def checkPassword(password):
     return data
 
 
-def generate_password(characterList, password_length, no_repeat=False):
-    if no_repeat:
-        password = random.sample(characterList, password_length)
-    else:
-        password = random.choices(characterList, k=password_length)
+def generate_password(characterList, password_length, no_repeat, str_type):
 
-    return ''.join(password)
+    password = ''
+    if 'upperCase' in str_type:
+        password += ''.join(random.choices(string.ascii_uppercase, k=1))
+    if 'lowerCase' in str_type:
+        password += ''.join(random.choices(string.ascii_lowercase, k=1))
+    if 'numbers' in str_type:
+        password += ''.join(random.choices(string.digits, k=1))
+    if 'specialCharacter' in str_type:
+        password += ''.join(random.choices(special_characters, k=1))
+
+    if no_repeat:
+        password += ''.join(random.sample(characterList, password_length))
+    else:
+        password += ''.join(random.choices(characterList, k=password_length))
+
+    # import requests
+    # r = requests.get('cNSg<P')
+    
+    return password
 
 
 # Function to group characters, as per options selected by user, before generating password
-def generate_characters(request):
+def generate_characters(request, str_type):
     characterList = ""
     if 'upperCase' in request.POST.keys():
+        str_type.append('upperCase')
         characterList += string.ascii_uppercase
     if 'lowerCase' in request.POST.keys():
+        str_type.append('lowerCase')
         characterList += string.ascii_lowercase
     if 'numbers' in request.POST.keys():
+        str_type.append('numbers')
         characterList += string.digits
     if 'specialCharacter' in request.POST.keys():
-        characterList += '!#$%&()*+-:;<=>?@_|'
+        str_type.append('specialCharacter')
+        characterList += special_characters
     
     return characterList
 
@@ -58,6 +78,7 @@ def generate_characters(request):
 def checkPasswordConditions(request, context):
 
     password_length = request.POST['passwordLength']
+    context['password_length'] = password_length
     if not password_length.isdigit():
         context['error_msg'] = "Password length should be of Type Integer from 6 to 20"
     else:
@@ -84,20 +105,19 @@ def home(request):
     if request.method == "POST":
 
         form = forms.FormName(request.POST)
-        password_length = 0
         context = checkPasswordConditions(request, context)
-
 
         if 'error_msg' not in context:
             # Then we check to see if the form is valid
             if form.is_valid():
-                password_length = request.POST['passwordLength']
-                password_length = int(password_length)
+                str_type = []
+                password_length = int(context['password_length'])
                 # Group characters as per option selected by user
-                characterList = generate_characters(request)
+                characterList = generate_characters(request, str_type)
+                password_length = password_length - len(str_type)
 
                 no_repeat = True if 'noRepeatCharacter' in request.POST.keys() else False
-                password = generate_password(characterList, password_length, no_repeat)
+                password = generate_password(characterList, password_length, no_repeat, str_type)
 
                 context['password'] = password
                 # To check if password generated is strong or not

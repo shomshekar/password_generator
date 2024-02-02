@@ -6,7 +6,7 @@ class FormName(forms.Form):
     upperCase = forms.BooleanField(label="Include Upper Case [A-Z]", required=False)
     lowerCase = forms.BooleanField(label="Include Lower Case [a-z]", required=False)
     numbers = forms.BooleanField(label="Include Numbers [0-9]", required=False)
-    specialCharacter = forms.BooleanField(label="Include Symbols [!#$%&()*+-:;<=>?@_|]", required=False)
+    specialCharacter = forms.BooleanField(label="Include Symbols [!#$%&()*+-:;?@_|]", required=False)
     noRepeatCharacter = forms.BooleanField(label="No Repeated Characters", required=False)
 
     def __init__(self, *args, **kwargs):
