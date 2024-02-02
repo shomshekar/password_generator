@@ -24,7 +24,7 @@ To generate password
     > Once the 2 characters are selected randomly, now the rest of the password lenght required is 6.
     > To get 6 characters we now use one of the two random functions.
     
-    > Incase the user also selects no_repeat checkbox option, then the random.sample() function is used, as random.sample will select charactes that will not be repeated, from characterList.
+    > Incase the user also selects no_repeat checkbox option, then the random.sample() function is used, as random.sample will select charactes that will not be repeated, from characterList. Before this selection the characters already selcted are removed from characterList.
     
     > Incase the user has not selected no_repeat option, then random.choices() function is used, which can also give already selected character, from characterList.
     
